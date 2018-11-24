@@ -1,0 +1,74 @@
+En el ejemplo que te he pasado la aplicacion tiene la siguiente estructura
+spot
+   Aqui se encuenta la aplicacion (SpringBootDemoApplication.java)
+spot/controller
+  He definido el controller para spot (SpotController.java)
+spot/dao
+  He definido segun el ejemplo el llamado del SpotDAO (ISpotDAO.java)
+  Y tambien la definicion transaccional y repository (SpotDAO.java)
+spot/entity
+  La entidad en mi base de datos (rw_spot.java)
+spot/service
+  ISpotService.java
+  SpotService.java, teoricamente no se para que son, pero bueno en ejemplo estaban y funcionan.
+
+Luego en la parte test hay un RestClientUtil.java, donde creo que se definen los mappings con las URLs, tampoco se en teoria para que se usa.
+Si me puedes orientar seria genial.
+
+La cosa es que esto funciona y lo quiero replicar para las consultas que tendre que hacer para el frontend de los clientes.
+
+Preguntas:
+1.- En el folder entity debo definir todas las entidades que tengo en mi base de datos?, es decir, todas las tablas que intervienen, sean las que 
+actualizan cada minuto como las que son practicamente estaticas?
+2.- Como defino en entity las relaciones que exiten entre las tablas? Por ejemplo
+
+rw_client {
+    "client",
+    "name",
+    "owner",
+    "document_type",
+    "document_number",
+    "email_owner",
+    "manager",
+    "email_manager",
+    "address",
+    "company",
+    "phone1",
+    "phone2",
+    "company_website",
+    "company_email",
+    "company_contact",
+    "company_phone",
+    "creationdate",
+    "creationby",
+    "updatedate",
+    "updateby"
+}
+Donde client, es el codigo de cliente que estara presente en la mayoria de las tablas, ya que es multicliente.
+luego esta la tabla rw_spot, la que he usado en el ejemplo y esta es su estructura:
+
+rw_spot {
+        "id",
+        "client_id",
+        "spot_name",
+        "country_id",
+        "state_id",
+        "city_id",
+        "location_id",
+        "zipcode",
+        "business_id",
+        "creationdate",
+        "creationby",
+        "updatedate",
+        "updateby"
+}
+
+Entonce la idea inicial es que cuando se seleccione un cliente, o el usuario pertenece a un cliente, solo filtre los establecimientos 
+que pertenecen a ese cliente. Y asi itr bajando de niveles.
+
+3.- Quien maneja la relacion, rw_client o en rw_spot debo crear en el DAO ese SELECT * FROM rw_spot WHERE client_id = ?
+4.- Que es recomendable, crear una sola aplicacion que maneje todo esto, o ir creando aplicaciones por cada entity?
+
+Creo que mi problema mas es de conceptos y me gustaria entenderlos para avanzar, ya que de ahi debo seguir con el websocket y saber 
+manejar la performance de los selects y llamada a la base de datos.... 
+No se si ha quedado claro o necesitas mas detalle?
